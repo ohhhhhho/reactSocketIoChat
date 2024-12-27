@@ -88,7 +88,7 @@ function App() {
               <button onClick={() => disconnectChat()} className='bg-transparent ring-1 ring-neutral-300 p-1.5 px-4 hover:bg-neutral-50 hover:text-neutral-900 hover:transition-colors border-none'>
                 접속종료
               </button>
-              <span className='text-neutral-600'>{username} {isConnected ? "온라인" : "오프라인"}</span>
+              <span className={`text-neutral-600 ${isConnected && 'text-white'}`}>{username} {isConnected ? "온라인" : "오프라인"}</span>
           </div>
           <div className='flex-grow overflow-y-scroll mt-6 bg-neutral-800 mb-16'>
             <ul ref={messageListRef} className='flex flex-col  px-2'>
@@ -100,8 +100,8 @@ function App() {
           <div className="fixed bottom-4 left-0 w-full px-4">
             <form onSubmit={sendMessageChat} className='flex flex-row justify-between w-full gap-4 flex-wrap'>
               <input type="text" value={userMessage} disabled={isConnected ? false : true} onChange={e => setUserMessage(e.target.value)} className='ring-1 ring-neutral-300 rounded-md flex-grow bg-transparent h-10'/>
-              <button disabled={isConnected ? false : true} className='w-1/6 bg-transparent ring-1 ring-neutral-300 hover:bg-neutral-50 hover:text-neutral-900 hover:transition-colors border-none h-10'>
-                  보내기
+              <button disabled={isConnected ? false : true} className='p-0 w-1/6 bg-transparent ring-1 ring-neutral-300 hover:bg-neutral-50 hover:text-neutral-900 hover:transition-colors border-none h-10'>
+                  전송
               </button>
             </form>
           </div>
