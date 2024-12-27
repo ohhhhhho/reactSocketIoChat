@@ -7,10 +7,8 @@ const app = express();
 const httpServer = createServer(app);
 
 const io = new Server(httpServer,{
-    cors: {
-        origin: ["http://localhost:3000", "https://your-frontend-url.vercel.app"],
-        methods: ["GET", "POST"],
-        credentials: true
+    cors:{
+        origins:"https://example.com"
     }
 });
 //연결이 됐을때
