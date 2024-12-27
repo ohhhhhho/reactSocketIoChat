@@ -8,7 +8,7 @@ const httpServer = createServer(app);
 
 const io = new Server(httpServer,{
     cors:{
-        origins:"https://example.com"
+        origins:"*"
     }
 });
 //연결이 됐을때
