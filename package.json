@@ -5,10 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "vite",
-    "build": "cd client && npm install && npm run build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "build": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "express": "^4.21.2",
