@@ -12,8 +12,12 @@ function App() {
 
   //챗 연결됨
   const connectChat = () => {
+      // 환경에 따른 서버 URL 설정
+      const serverUrl = import.meta.env.PROD 
+      ? import.meta.env.VITE_PROD_SOCKET_URL  // 프로덕션 URL
+      : import.meta.env.VITE_DEV_SOCKET_URL   // 개발 URL
     //서버와 소켓 연결
-    const socket_ = io(import.meta.env.VITE_SOCKET_URL,{ // 서버 주소
+    const socket_ = io(serverUrl,{ // 서버 주소
         //자동 연결 끔
         autoConnect:false,
         //소켓 연결시 함께 전송할 데이터(쿼리)
