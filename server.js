@@ -14,7 +14,7 @@ const httpServer = createServer(app);
 const io = new Server(httpServer,{
     cors: {
         origin: ["http://localhost:5173", "http://localhost:3000"], // 로컬 개발용
-        methods: ["GET", "POST"],
+        methods: ["GET", "POST"] ,
         credentials: true
     }
 });
@@ -39,13 +39,20 @@ io.on('connection', (client) => {
     })
 })
 
+// 프로덕션 환경에서 정적 파일 제공
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'client/dist')));
+    app.use(express.static(path.join(__dirname, 'dist')));
     app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'client/dist/index.html'));
+        res.sendFile(path.join(__dirname, 'dist/index.html'));
     });
 }
 
+// 개발 환경에서만 vite-express 사용
+if (process.env.NODE_ENV !== 'production') {
+    import('vite-express').then(({ default: viteExpress }) => {
+        viteExpress.bind(app, httpServer);
+    });
+}
 httpServer.listen(3000, () => {
     console.log('서버에서 듣고 있음')
 })
