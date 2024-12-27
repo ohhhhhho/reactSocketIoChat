@@ -12,8 +12,12 @@ function App() {
 
   //챗 연결됨
   const connectChat = () => {
+      // 개발 환경과 프로덕션 환경 구분
+      const socketUrl = import.meta.env.DEV 
+      ? import.meta.env.VITE_SOCKET_URL  // 개발 환경
+      : '';  // 프로덕션 환경에서는 현재 origin 사용
     //서버와 소켓 연결
-    const socket_ = io('http://localhost:3000',{ // 서버 주소
+    const socket_ = io(socketUrl,{ // 서버 주소
         //자동 연결 끔
         autoConnect:false,
         //소켓 연결시 함께 전송할 데이터(쿼리)

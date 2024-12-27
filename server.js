@@ -2,13 +2,20 @@ import { Server } from "socket.io";
 import express from "express";
 import { createServer } from "node:http";
 import viteExpress from 'vite-express'
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const httpServer = createServer(app);
 
 const io = new Server(httpServer,{
-    cors:{
-        origins:"https://example.com"
+    cors: {
+        origin: ["http://localhost:5173", "http://localhost:3000"], // 로컬 개발용
+        methods: ["GET", "POST"],
+        credentials: true
     }
 });
 //연결이 됐을때
@@ -31,6 +38,13 @@ io.on('connection', (client) => {
         io.emit("new message",{username:"관리자",message:`${connectedUser}님이 나갔습니다 `})
     })
 })
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'client/dist')));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client/dist/index.html'));
+    });
+}
 
 httpServer.listen(3000, () => {
     console.log('서버에서 듣고 있음')
