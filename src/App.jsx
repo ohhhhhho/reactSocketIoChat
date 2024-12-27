@@ -13,7 +13,7 @@ function App() {
   //챗 연결됨
   const connectChat = () => {
     //서버와 소켓 연결
-    const socket_ = io('http://localhost:3000',{ // 서버 주소
+    const socket_ = io(import.meta.env.VITE_SOCKET_URL,{ // 서버 주소
         //자동 연결 끔
         autoConnect:false,
         //소켓 연결시 함께 전송할 데이터(쿼리)
